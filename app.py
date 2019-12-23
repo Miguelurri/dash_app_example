@@ -54,9 +54,7 @@ app.layout = html.Div([
     )], style={'width': '95%', 'margin': 'auto'}),
 
     # SECOND GRAPH
-    html.Div([]),
-    html.Div([]),
-    html.Div([]),
+    html.P([html.Br([]), html.Br([]), html.Br([]), html.Br([])]),
     html.Div([
         dcc.Dropdown(
             id='xaxis-column-b',
