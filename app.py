@@ -56,7 +56,7 @@ app.layout = html.Div([
 
     html.Div([
         dcc.Dropdown(
-            id='xaxis-column-b',
+            id='countries-b',
             options=[{'label': i, 'value': i} for i in available_locations],
             value='European Union - 28 countries'
         )], style={'width': '48%', 'display': 'inline-block'}),
@@ -114,11 +114,11 @@ def update_graph1(xaxis_column_name, yaxis_column_name,
 
 @app.callback(
     dash.dependencies.Output('output-b', 'figure'),
-    [dash.dependencies.Input('xaxis-column-b', 'value'),
+    [dash.dependencies.Input('countries-b', 'value'),
      dash.dependencies.Input('yaxis-column-b', 'value'),
      dash.dependencies.Input('units-b', 'value')])
-def update_graph2(xaxis_column_name, yaxis_column_name, units_value):
-    dff = df[(df['GEO'] == xaxis_column_name) & (df['UNIT'] == units_value)]
+def update_graph2(countriess, yaxis_column_name, units_value):
+    dff = df[(df['GEO'] == countriess) & (df['UNIT'] == units_value)]
     return {'data': [go.Scatter(
             x=dff[(dff['NA_ITEM'] == yaxis_column_name)]['TIME'],
             y=dff[(dff['NA_ITEM'] == yaxis_column_name)]['Value'],
