@@ -54,10 +54,12 @@ app.layout = html.Div([
     )], style={'width': '95%', 'margin': 'auto'}),
 
     # SECOND GRAPH
-
+    html.Div([]),
+    html.Div([]),
+    html.Div([]),
     html.Div([
         dcc.Dropdown(
-            id='countries-b',
+            id='xaxis-column-b',
             options=[{'label': i, 'value': i} for i in available_locations],
             value='European Union - 28 countries'
         )], style={'width': '48%', 'display': 'inline-block'}),
@@ -67,13 +69,6 @@ app.layout = html.Div([
             options=[{'label': i, 'value': i} for i in available_items],
             value='Value added, gross'
         )], style={'width': '48%', 'display': 'inline-block'}),
-
-    html.Div([
-        dcc.RadioItems(
-            id='units-b',
-            options=[{'label': i, 'value': i} for i in available_units],
-            value='Chain linked volumes, index 2010=100'
-        )], style={'width': '55%', 'margin': 'auto'}),
 
     dcc.Graph(id='output-b')
 ])
@@ -115,11 +110,11 @@ def update_graph1(xaxis_column_name, yaxis_column_name,
 
 @app.callback(
     dash.dependencies.Output('output-b', 'figure'),
-    [dash.dependencies.Input('countries-b', 'value'),
-     dash.dependencies.Input('yaxis-column-b', 'value'),
-     dash.dependencies.Input('units-b', 'value')])
-def update_graph2(countriess, yaxis_column_name, units_value):
-    dff = df[(df['GEO'] == countriess) & (df['UNIT'] == units_value)]
+    [dash.dependencies.Input('xaxis-column-b', 'value'),
+     dash.dependencies.Input('yaxis-column-b', 'value')])
+def update_graph2(xaxis_column_name, yaxis_column_name):
+    dff = df[(df['GEO'] == xaxis_column_name) & (
+        df['UNIT'] == 'Chain linked volumes, index 2010=100')]
     return {'data': [go.Scatter(
             x=dff[(dff['NA_ITEM'] == yaxis_column_name)]['TIME'],
             y=dff[(dff['NA_ITEM'] == yaxis_column_name)]['Value'],
