@@ -14,7 +14,7 @@ import pandas as pd
 app = dash.Dash()
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
 
-df = pd.read_csv('nama_10_gdp_1_Data.csv')
+df = pd.read_csv('data/nama_10_gdp_1_Data.csv')
 available_items = df['NA_ITEM'].unique()
 available_locations = df['GEO'].unique()
 available_units = df['UNIT'].unique()
